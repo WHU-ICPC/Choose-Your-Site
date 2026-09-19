@@ -1,3 +1,5 @@
+import { selectionPreview } from './selection.js';
+
 const byId = id => document.getElementById(id);
 let token = '';
 let state;
@@ -103,11 +105,16 @@ function render() {
   }
   if (editable) {
     if (!rankingDirty) ranking = [...position.preferences];
+    const preview = selectionPreview(state.options, state.people, { ...position, name: me.name }, ranking);
+    byId('selection-preview').textContent = preview.choice === null ? '当前无可用选项' : '预计选择：' + state.options.find(option => option.id === preview.choice).name;
     const focusKey = document.activeElement?.dataset.rankKey;
     byId('ranking').replaceChildren(...ranking.map((id, index) => {
       const option = state.options.find(item => item.id === id);
-      const row = element('li', undefined, 'rank-row');
-      row.append(element('span', (index + 1) + '. ' + option.name + '（余 ' + option.remaining + '）', 'rank-name'));
+      const excluded = preview.excluded.has(id);
+      const selected = preview.choice === id;
+      const row = element('li', undefined, 'rank-row' + (excluded ? ' rank-excluded' : selected ? ' rank-selected' : ''));
+      const label = excluded ? ' · 本人同组前面已选' : selected ? ' · 预计选中' : '';
+      row.append(element('span', (index + 1) + '. ' + option.name + '（余 ' + preview.remaining.get(id) + '）' + label, 'rank-name'));
       for (const [offset, symbol, label] of [[-1, '↑', '上移'], [1, '↓', '下移']]) {
         const button = element('button', symbol);
         button.type = 'button';

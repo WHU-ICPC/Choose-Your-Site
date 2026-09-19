@@ -2,6 +2,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { updateConfirmedSelections } from './public/selection.js';
 import { ROOT, SOURCE, acquireLock, atomicWrite, digest, publicState, readUtf8, advanceTurns, parseInputs, issueTokens } from './lib.mjs';
 
 export function createApp(directory = ROOT, now = Date.now) {
@@ -19,6 +20,7 @@ export function createApp(directory = ROOT, now = Date.now) {
   const assets = new Map([
     ['/', ['index.html', 'text/html; charset=utf-8']],
     ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+    ['/selection.js', ['selection.js', 'text/javascript; charset=utf-8']],
     ['/style.css', ['style.css', 'text/css; charset=utf-8']],
     ['/favicon.svg', ['favicon.svg', 'image/svg+xml']]
   ]);
@@ -81,14 +83,12 @@ export function createApp(directory = ROOT, now = Date.now) {
       if (!Array.isArray(preferences) || preferences.length !== person.allowed.length || new Set(preferences).size !== preferences.length || preferences.some(id => !Number.isInteger(id) || !person.allowed.includes(id))) {
         return json(response, 400, { error: '倾向排列需包含全部允许项目，每项出现一次。' });
       }
-      const confirmedChoice = preferences[0];
-      const conflict = data.people.find(other => other.number !== person.number && other.name === person.name && other.group === person.group && (other.confirmedChoice === confirmedChoice || other.choice === confirmedChoice));
-      if (conflict) return json(response, 409, { error: `此首选项已被你在同组的第 ${conflict.number} 位确认或锁定，请调整首选项。` });
       const confirmedAt = now();
       const next = structuredClone(data);
       next.people[person.number - 1].preferences = preferences;
-      next.people[person.number - 1].confirmedChoice = confirmedChoice;
       next.people[person.number - 1].confirmedAt = confirmedAt;
+      updateConfirmedSelections(next);
+      const confirmedChoice = next.people[person.number - 1].confirmedChoice;
       commit(next);
       return json(response, 200, { ok: true, preferences, confirmedChoice, confirmedAt });
     } catch (error) {

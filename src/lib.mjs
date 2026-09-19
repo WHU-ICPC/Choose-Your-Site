@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { updateConfirmedSelections } from './public/selection.js';
 
 export const SOURCE = path.dirname(fileURLToPath(import.meta.url));
 export const ROOT = path.dirname(SOURCE);
@@ -132,7 +133,8 @@ export function publicState(data, now = Date.now()) {
     completedCount: data.people.filter(person => person.lockedAt !== null).length,
     people: data.people.map(person => ({
       number: person.number, name: person.name, group: person.group, lockedAt: person.lockedAt,
-      option: data.options.find(option => option.id === person.confirmedChoice)?.name ?? '尚未选择'
+      choice: person.choice, confirmedChoice: person.confirmedChoice, confirmedAt: person.confirmedAt,
+      option: person.confirmedAt == null ? '尚未选择' : data.options.find(option => option.id === person.confirmedChoice)?.name ?? '无可用选项'
     })),
     current: current ? { number: current.number, name: current.name } : null,
     total: data.people.length
@@ -153,5 +155,6 @@ export function advanceTurns(data, now = Date.now()) {
     if (person.choice !== null) remaining.set(person.choice, remaining.get(person.choice) - 1);
     changed = true;
   }
+  if (changed) updateConfirmedSelections(data);
   return changed;
 }

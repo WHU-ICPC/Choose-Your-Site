@@ -6,7 +6,7 @@
   <title>顺序选择</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
-  <script src="/app.js" defer></script>
+  <script src="/app.js" type="module"></script>
 </head>
 <body>
   <main>
@@ -31,10 +31,11 @@
       <div id="identity" hidden><h3 id="my-name"></h3><div id="position-picker" hidden><label for="position">我的位置</label><select id="position"></select></div><p id="my-status"></p></div>
       <form id="preferences-form" hidden>
         <h3>倾向排列</h3>
-        <p>确认后公开显示首选项。同一账户同组各位置的首选项需不同。锁定时依次选择有余量且本人同组尚未锁定的项目。</p>
+        <p id="selection-preview" role="status"></p>
         <ol id="ranking"></ol>
         <button id="save-preferences" type="submit">确认排列</button>
         <span id="preferences-status"></span>
+        <span>（确认后、锁定前仍可修改和重新确认）</span>
       </form>
       <p id="message" role="status" hidden></p>
     </section>
