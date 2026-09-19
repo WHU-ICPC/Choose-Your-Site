@@ -1,0 +1,9 @@
+data.json
+tokens.txt
+app.lock
+*.tmp
+*.log
+.test-*/
+.test-browser-*/
+verification/
+.agents/

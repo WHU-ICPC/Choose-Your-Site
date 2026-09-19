@@ -1,0 +1,18 @@
+{
+  "name": "ordered-choice",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "init": ".\\node.exe src/init.mjs",
+    "start": ".\\node.exe src/server.mjs",
+    "test": ".\\node.exe --test src/test/*.test.mjs",
+    "test:browser": ".\\node.exe src/test/browser.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

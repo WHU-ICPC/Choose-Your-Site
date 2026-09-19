@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>顺序选择</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header><div class="header-inner"><a class="brand" href="/"><img src="/favicon.svg" width="32" height="32" alt="">顺序选择</a><button id="theme" class="icon-button" type="button" aria-label="切换亮暗模式" title="切换亮暗模式">☾</button></div></header>
+  <main>
+    <section class="overview"><div><p class="eyebrow">当前项目</p><h1 id="project-title">顺序选择</h1><h2 id="current">正在加载…</h2><p id="progress-text" class="muted"></p><p id="countdown" class="countdown" role="timer"></p></div><div class="progress-area"><span id="progress-count">—</span><progress id="progress" max="1" value="0" aria-label="总体选择进度"></progress></div></section>
+    <p id="connection" class="notice" role="status" hidden></p>
+    <div class="workspace">
+      <div class="public-column">
+        <section><div class="section-heading"><h2>可选项目</h2><span class="muted">剩余 / 总量</span></div><div id="options" class="option-list"></div></section>
+        <section class="history"><div class="section-heading"><h2>已完成选择</h2><span id="history-count" class="muted"></span></div><p id="empty" class="empty">还没有人完成选择</p><div class="table-wrap"><table id="history-table" hidden><thead><tr><th scope="col">顺序</th><th scope="col">姓名</th><th scope="col">所选项目</th></tr></thead><tbody id="history"></tbody></table></div></section>
+      </div>
+      <aside>
+        <section class="personal">
+          <div class="section-heading"><h2>我的选择</h2><button type="button" id="logout" class="text-button" hidden>退出</button></div>
+          <form id="login-form"><label for="token">Token</label><input id="token" name="token" type="password" autocomplete="off" required maxlength="100" placeholder="输入你的 Token"><button id="login-button" class="primary" type="submit">登录</button></form>
+          <div id="identity" hidden><div class="identity-line"><strong id="my-name"></strong><span id="my-number" class="muted"></span></div><p id="my-status" class="status" aria-live="polite"></p><form id="choice-form"><fieldset id="choices"><legend class="sr-only">允许选择的项目</legend></fieldset><button id="submit-choice" class="primary" type="submit" disabled>确认选择</button></form></div>
+          <p id="message" class="message" role="status" hidden></p>
+          <form id="preferences-form" hidden>
+            <div class="section-heading"><h2>预选择顺序</h2><span id="preferences-status" class="muted"></span></div>
+            <ol id="ranking"></ol>
+            <div class="preference-add"><select id="preference-option" aria-label="预选择项目"></select><button id="add-preference" type="button" title="添加到末尾" aria-label="添加到末尾">+</button></div>
+            <button id="save-preferences" type="submit" class="primary">保存预选择</button>
+          </form>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <footer>按序选择 · 每个 Token 一次机会</footer>
+</body>
+</html>
