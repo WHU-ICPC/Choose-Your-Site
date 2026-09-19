@@ -1,5 +1,5 @@
 data.json
-*.txt
+token.txt
 app.lock
 *.tmp
 *.log
