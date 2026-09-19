@@ -14,7 +14,7 @@
 自定义端口：
 
 ```powershell
-.\start.cmd 8080
+.\start.cmd 7999
 ```
 
 局域网用户通过服务器 IP 和对应端口访问。Windows 防火墙需允许该 TCP 端口。服务在当前终端运行，按 Ctrl+C 停止。
