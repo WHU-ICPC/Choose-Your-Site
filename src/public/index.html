@@ -9,31 +9,48 @@
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <header><div class="header-inner"><a class="brand" href="/"><img src="/favicon.svg" width="32" height="32" alt="">顺序选择</a><button id="theme" class="icon-button" type="button" aria-label="切换亮暗模式" title="切换亮暗模式">☾</button></div></header>
   <main>
-    <section class="overview"><div><p class="eyebrow">当前项目</p><h1 id="project-title">顺序选择</h1><h2 id="current">正在加载…</h2><p id="progress-text" class="muted"></p><p id="countdown" class="countdown" role="timer"></p></div><div class="progress-area"><span id="progress-count">—</span><progress id="progress" max="1" value="0" aria-label="总体选择进度"></progress></div></section>
-    <p id="connection" class="notice" role="status" hidden></p>
-    <div class="workspace">
-      <div class="public-column">
-        <section><div class="section-heading"><h2>可选项目</h2><span class="muted">剩余 / 总量</span></div><div id="options" class="option-list"></div></section>
-        <section class="history"><div class="section-heading"><h2>已完成选择</h2><span id="history-count" class="muted"></span></div><p id="empty" class="empty">还没有人完成选择</p><div class="table-wrap"><table id="history-table" hidden><thead><tr><th scope="col">顺序</th><th scope="col">姓名</th><th scope="col">所选项目</th></tr></thead><tbody id="history"></tbody></table></div></section>
-      </div>
-      <aside>
-        <section class="personal">
-          <div class="section-heading"><h2>我的选择</h2><button type="button" id="logout" class="text-button" hidden>退出</button></div>
-          <form id="login-form"><label for="token">Token</label><input id="token" name="token" type="password" autocomplete="off" required maxlength="100" placeholder="输入你的 Token"><button id="login-button" class="primary" type="submit">登录</button></form>
-          <div id="identity" hidden><div class="identity-line"><strong id="my-name"></strong><span id="my-number" class="muted"></span></div><p id="my-status" class="status" aria-live="polite"></p><form id="choice-form"><fieldset id="choices"><legend class="sr-only">允许选择的项目</legend></fieldset><button id="submit-choice" class="primary" type="submit" disabled>确认选择</button></form></div>
-          <p id="message" class="message" role="status" hidden></p>
-          <form id="preferences-form" hidden>
-            <div class="section-heading"><h2>预选择顺序</h2><span id="preferences-status" class="muted"></span></div>
-            <ol id="ranking"></ol>
-            <div class="preference-add"><select id="preference-option" aria-label="预选择项目"></select><button id="add-preference" type="button" title="添加到末尾" aria-label="添加到末尾">+</button></div>
-            <button id="save-preferences" type="submit" class="primary">保存预选择</button>
-          </form>
-        </section>
-      </aside>
-    </div>
+    <h1 id="project-title">顺序选择</h1>
+    <p id="connection" role="status" hidden></p>
+    <section>
+      <h2>当前情况</h2>
+      <p id="current">正在加载…</p>
+      <p id="schedule"></p>
+      <p id="countdown" role="timer"></p>
+      <div id="options" class="options"></div>
+      <h3>选择情况</h3>
+      <table id="results"><thead><tr><th>位置</th><th>姓名</th><th>组名</th><th>当前选择</th></tr></thead><tbody id="history"></tbody></table>
+    </section>
+    <section>
+      <div class="heading"><h2>账户</h2><button id="logout" type="button" hidden>退出</button></div>
+      <form id="login-form">
+        <label for="token">Token</label>
+        <input id="token" type="password" autocomplete="off" minlength="10" maxlength="10" required>
+        <button id="login-button" type="submit">登录</button>
+      </form>
+      <div id="identity" hidden><h3 id="my-name"></h3><div id="position-picker" hidden><label for="position">我的位置</label><select id="position"></select></div><p id="my-status"></p></div>
+      <form id="preferences-form" hidden>
+        <h3>倾向排列</h3>
+        <p>确认后公开显示首选项。同一账户同组各位置的首选项需不同。锁定时依次选择有余量且本人同组尚未锁定的项目。</p>
+        <ol id="ranking"></ol>
+        <button id="save-preferences" type="submit">确认排列</button>
+        <span id="preferences-status"></span>
+      </form>
+      <p id="message" role="status" hidden></p>
+    </section>
+    <section>
+      <h2>设置</h2>
+      <label for="theme">显示模式</label>
+      <select id="theme"><option value="light">亮色</option><option value="dark">暗色</option></select>
+      <form id="settings-form" hidden>
+        <label for="start-at">开始时刻（本机时区，留空为待设置）</label>
+        <input id="start-at" type="datetime-local" step="1">
+        <label for="interval">锁定间隔（秒）</label>
+        <input id="interval" type="number" min="1" max="86400" step="1" required>
+        <button id="save-settings" type="submit">保存设置</button>
+        <p id="settings-status"></p>
+      </form>
+    </section>
   </main>
-  <footer>按序选择 · 每个 Token 一次机会</footer>
 </body>
 </html>

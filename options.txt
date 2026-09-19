@@ -1,6 +1,11 @@
-@title 🐖🐖选择
-@timeout 60
-猪圈 2
-狗窝 3
-牛棚 4
-马厩 5
+@title 选站
+ICPC-西安 4 ICPC
+ICPC-成都 4 ICPC
+ICPC-南京 4 ICPC
+ICPC-沈阳 4 ICPC
+ICPC-上海 4 ICPC
+ICPC-南昌 4 ICPC
+ICPC-港澳 1 ICPC
+CCPC-长春 4 CCPC
+CCPC-乐山 4 CCPC
+CCPC-厦门 4 CCPC
