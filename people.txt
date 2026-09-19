@@ -22,6 +22,7 @@ retripeople CCPC
 种瓜得瓜种豆得豆 CCPC
 这是一个很重要的问题 ICPC
 呜呜泽哥好惨 ICPC
+呜呜泽哥好惨 CCPC
 我沒意見 ICPC
 栈中星河 ICPC
 想个队名 ICPC
