@@ -7,7 +7,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "init": ".\\node.exe src/init.mjs",
-    "start": ".\\node.exe src/server.mjs"
+    "init": "node src/init.mjs",
+    "start": "node src/server.mjs"
   }
 }
